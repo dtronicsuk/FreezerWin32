@@ -1,0 +1,104 @@
+{
+  "name": "freezer",
+  "private": true,
+  "version": "1.1.24",
+  "description": "Freezer PC",
+  "scripts": {
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "postinstall": "electron-builder install-app-deps",
+    "build": "cd app && npm i && cd client && npm i && npm run build && cd .. && cd .. && npm run dist"
+  },
+  "license": "GPL-3.0-or-later",
+  "homepage": "https://freezer.life",
+  "devDependencies": {
+    "electron": "^13.0.1",
+    "electron-builder": "^22.10.5"
+  },
+  "build": {
+    "appId": "com.exttex.freezer",
+    "productName": "Freezer",
+    "extraResources": [
+      {
+        "from": "app/assets/**",
+        "to": "assets/"
+      }
+    ],
+    "files": [
+      "**/*",
+      "!app/client/",
+      "app/client/dist/**"
+    ],
+    "win": {
+      "target": [
+        "portable",
+        "nsis"
+      ],
+      "icon": "build/icon.ico",
+      "asarUnpack": [
+        "app/node_modules/nodeezcryptor/**"
+      ]
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowElevation": false,
+      "allowToChangeInstallationDirectory": false
+    },
+    "linux": {
+      "appId": "f.f.freezer",
+      "category": "AudioVideo;Network;Audio;FileTransfer;Player",
+      "description": "Free music streaming client for Deezer",
+      "desktop": {
+        "Version": "1.1",
+        "Type": "Application",
+        "Name": "Freezer",
+        "Name[pt_PT]": "Congelador",
+        "GenericName": "Electron-based Deezer client",
+        "GenericName[pt_PT]": "Aplicação Electron no ambiente de trabalho para Deezer",
+        "Comment": "Desktop application for the Deezer audio streaming service",
+        "Comment[pt_PT]": "Cliente não-oficial do serviço de transmissão de áudio Deezer",
+        "Icon": "freezer",
+        "Categories": "AudioVideo;Network;Audio;FileTransfer;Player;",
+        "MimeType": "application/http;",
+        "Keywords": "audio;download;flac;lyrics;mp3;music;spotify;stream;",
+        "Keywords[pt_PT]": "áudio;descarregar;flac;letras;mp3;música;spotify;transmissão;",
+        "Keywords[ru]": "Фризер;Музыка;Плеер;Дизер;",
+        "StartupNotify": "true",
+        "StartupWMClass": "freezer",
+        "DBusActivatable": "false",
+        "Terminal": "false",
+        "NoDisplay": "false",
+        "Hidden": "false"
+      },
+      "executableName": "freezer",
+      "icon": "build/iconset",
+      "maintainer": "exttex",
+      "mimeTypes": [
+        "application/http"
+      ],
+      "synopsis": "Free audio streaming client for Deezer",
+      "target": [
+        "AppImage",
+        "deb",
+        "tar.xz"
+      ]
+    },
+    "appImage": {
+      "desktop": {
+        "X-AppImage-Name": "Freezer"
+      }
+    },
+    "deb": {
+      "packageCategory": "sound",
+      "priority": "optional",
+      "depends": [
+        "libflac8",
+        "libnotify4",
+        "libnss3",
+        "libssl1.1 | libssl1.0.0",
+        "libxtst6"
+      ]
+    }
+  }
+}
